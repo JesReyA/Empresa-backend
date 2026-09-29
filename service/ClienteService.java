@@ -4,6 +4,12 @@ import com.tuempresa.empresa_backend.entity.Cliente;
 import com.tuempresa.empresa_backend.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
+// Nos ayudan con la paginación, ayudan a devolver fragmentos de tabla
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +24,17 @@ public class ClienteService {
     }
 
     //Se definen los metodos del CRUD
-    public List<Cliente> listar(){
-        return clienteRepository.findAll();
+    public Page<Cliente> listar(int pagina, int tamano){
+
+        if(pagina < 0)
+            pagina = 0
+
+        if (tamano <= 0)
+            tamano = 10
+
+        Pageable pg = PageRequest.of(pagina, tamano)
+
+        return clienteRepository.findAll(pg);
     }
 
     //Estos métodos de heredan por la interfaz repository

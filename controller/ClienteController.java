@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+// Se importa Page
+import org.springframework.data.domain.Page;
+
 @RestController
 @RequestMapping("/api/clientes")
 //Direccion URL a la que se mandarán peticiones
@@ -29,9 +32,11 @@ public class ClienteController {
     }
 
     //Se realiza una petición de tipo get
+    // Se regresa un objeto de tipo response entity el cual se obtiene de listar, al igual los valores de pagina y tamaño se obtienen de la consulta (URL) y se pueden definir valores default
     @GetMapping
-    public List<Cliente> listar(){
-        return clienteService.listar();
+    public ResponseEntity<Page<Cliente>> listar(@RequestParam(value= "pagina", defaultValue = "0")int pagina, @RequestParam(value= "tamano", defaultValue = "2")int tamano){
+        Page<Cliente> resultado = clienteService.listar(pagina, tamano)
+        return ResponseEntity.ok(resultado);
     }
 
     //id sería una vaiable de plantilla URI, al recibir /api/clientes/42 por ejemplo, el id sería 42
