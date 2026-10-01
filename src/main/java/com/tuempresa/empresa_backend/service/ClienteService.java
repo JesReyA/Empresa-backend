@@ -27,12 +27,12 @@ public class ClienteService {
     public Page<Cliente> listar(int pagina, int tamano){
 
         if(pagina < 0)
-            pagina = 0
+            pagina = 0;
 
         if (tamano <= 0)
-            tamano = 10
+            tamano = 10;
 
-        Pageable pg = PageRequest.of(pagina, tamano)
+        Pageable pg = PageRequest.of(pagina, tamano);
 
         return clienteRepository.findAll(pg);
     }

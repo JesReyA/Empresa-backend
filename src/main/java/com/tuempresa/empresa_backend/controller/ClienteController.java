@@ -35,7 +35,7 @@ public class ClienteController {
     // Se regresa un objeto de tipo response entity el cual se obtiene de listar, al igual los valores de pagina y tamaño se obtienen de la consulta (URL) y se pueden definir valores default
     @GetMapping
     public ResponseEntity<Page<Cliente>> listar(@RequestParam(value= "pagina", defaultValue = "0")int pagina, @RequestParam(value= "tamano", defaultValue = "2")int tamano){
-        Page<Cliente> resultado = clienteService.listar(pagina, tamano)
+        Page<Cliente> resultado = clienteService.listar(pagina, tamano);
         return ResponseEntity.ok(resultado);
     }
 
